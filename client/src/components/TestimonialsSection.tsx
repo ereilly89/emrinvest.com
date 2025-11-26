@@ -9,7 +9,7 @@ import client4 from "@assets/generated_images/client_testimonial_headshot_4.png"
 const testimonials = [
   {
     image: client1,
-    quote: "EmrInvest transformed our online presence. The website they built has significantly increased our customer engagement and sales.",
+    quote: "EMR Invest transformed our online presence. The website they built has significantly increased our customer engagement and sales.",
     name: "Sarah Johnson",
     company: "TechStart Solutions",
     initials: "SJ",
@@ -23,7 +23,7 @@ const testimonials = [
   },
   {
     image: client3,
-    quote: "Working with EmrInvest was a seamless experience. They truly understood our vision and brought it to life beautifully.",
+    quote: "Working with EMR Invest was a seamless experience. They truly understood our vision and brought it to life beautifully.",
     name: "Emma Rodriguez",
     company: "Creative Design Studio",
     initials: "ER",

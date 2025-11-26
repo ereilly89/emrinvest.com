@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Globe, ShoppingCart, Code, Palette, Search, Headphones } from "lucide-react";
+import { Globe, ShoppingCart, Code, Bot, Search, Headphones } from "lucide-react";
 
 const services = [
   {
@@ -18,9 +18,9 @@ const services = [
     description: "Powerful web applications built with cutting-edge technology to solve complex business challenges.",
   },
   {
-    icon: Palette,
-    title: "Brand Identity",
-    description: "Cohesive visual identities that make your brand memorable and stand out in the marketplace.",
+    icon: Bot,
+    title: "AI & Automations",
+    description: "Intelligent automation solutions powered by AI to streamline your workflows and boost productivity.",
   },
   {
     icon: Search,
