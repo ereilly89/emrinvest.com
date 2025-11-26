@@ -27,8 +27,7 @@ export async function registerRoutes(
   app.post("/api/contact", async (req: any, res) => {
     try {
       const validatedData = insertContactSchema.parse(req.body);
-      const userId = req.user?.claims?.sub;
-      const submission = await storage.createContactSubmission(validatedData, userId);
+      const submission = await storage.createContactSubmission(validatedData);
       res.status(201).json(submission);
     } catch (error) {
       console.error("Error creating contact submission:", error);
