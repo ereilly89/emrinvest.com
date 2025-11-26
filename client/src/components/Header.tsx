@@ -1,11 +1,14 @@
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./ThemeToggle";
+import { UserMenu } from "./UserMenu";
 import { useState } from "react";
 import { Link } from "wouter";
+import { useAuth } from "@/hooks/useAuth";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -55,13 +58,18 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Button
-            onClick={() => scrollToSection("contact")}
-            className="hidden md:inline-flex"
-            data-testid="button-get-started"
-          >
-            Get Started
-          </Button>
+          <div className="hidden md:flex items-center gap-2">
+            {!isAuthenticated && (
+              <Button
+                onClick={() => scrollToSection("contact")}
+                variant="outline"
+                data-testid="button-get-started"
+              >
+                Get Started
+              </Button>
+            )}
+            <UserMenu />
+          </div>
           <Button
             variant="ghost"
             size="icon"
@@ -105,13 +113,19 @@ export function Header() {
             >
               Contact
             </button>
-            <Button
-              onClick={() => scrollToSection("contact")}
-              className="w-full"
-              data-testid="button-mobile-get-started"
-            >
-              Get Started
-            </Button>
+            {!isAuthenticated ? (
+              <Button
+                onClick={() => scrollToSection("contact")}
+                className="w-full"
+                data-testid="button-mobile-get-started"
+              >
+                Get Started
+              </Button>
+            ) : (
+              <div className="pt-2 border-t">
+                <UserMenu />
+              </div>
+            )}
           </nav>
         </div>
       )}

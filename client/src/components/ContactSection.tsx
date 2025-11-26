@@ -7,6 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 
 export function ContactSection() {
   const { toast } = useToast();
@@ -17,14 +19,29 @@ export function ContactSection() {
     message: "",
   });
 
+  const contactMutation = useMutation({
+    mutationFn: async (data: typeof formData) => {
+      await apiRequest("POST", "/api/contact", data);
+    },
+    onSuccess: () => {
+      toast({
+        title: "Message Sent!",
+        description: "We'll get back to you within 24 hours.",
+      });
+      setFormData({ name: "", email: "", projectType: "", message: "" });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Contact form submitted:", formData);
-    toast({
-      title: "Message Sent!",
-      description: "We'll get back to you within 24 hours.",
-    });
-    setFormData({ name: "", email: "", projectType: "", message: "" });
+    contactMutation.mutate(formData);
   };
 
   return (
@@ -107,8 +124,14 @@ export function ContactSection() {
                   />
                 </div>
 
-                <Button type="submit" className="w-full" size="lg" data-testid="button-submit-contact">
-                  Send Message
+                <Button 
+                  type="submit" 
+                  className="w-full" 
+                  size="lg" 
+                  disabled={contactMutation.isPending}
+                  data-testid="button-submit-contact"
+                >
+                  {contactMutation.isPending ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </CardContent>
